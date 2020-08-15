@@ -20,7 +20,19 @@ namespace Webp
         delegate void SetProgressCallback(int d);
         delegate void SetMaxProgressCallback(int d);
         delegate void SetColorListviewCallback(int i, Color d);
+        delegate void SetTextListviewCallback(int i);
         string command="";
+
+        string lvitems;
+        string cbp;
+        string cbm;
+        bool cblossless;
+        string numqf;
+        string numcomp;
+        string savepath;
+        bool cbexact;
+
+        int now_index =0;
         bool is_stop = false;
         public Form3(Form1 form)
         {
@@ -93,9 +105,24 @@ namespace Webp
             }
             
         }
+
+        void onSetlistviewText(int i)
+        {
+            if (this.InvokeRequired)
+            {
+                SetTextListviewCallback a = new SetTextListviewCallback(onSetlistviewText);
+                this.Invoke(a, new object[] { i });
+            }
+            else
+            {
+                lvitems = listView1.Items[now_index].Text;
+                T_Work_file.Text = lvitems;
+            }
+        }
+      
        
 
-        void cwebp_thread()
+        int cwebp_thread()
         {
            
             ProcessStartInfo cmd = new ProcessStartInfo();
@@ -146,19 +173,87 @@ namespace Webp
 
 
             process.Close();
+            return 0;
         }
+        private void Complete(object sender, EventArgs e)
+        {
+            OnSetlistviewColor(now_index, Color.Aquamarine);
+            
+            now_index++;
 
-       
+            if(now_index < listView1.Items.Count)
+            {
+                onSetlistviewText(now_index);//lvitems = listView1.Items[now_index].Text;
+                                             //T_Work_file.Text = lvitems;
+                T_Start = new Thread(start_thread);
+                T_Start.Start();
+            }
+            else
+                MessageBox.Show("clear");
+        }
+        void start_thread()
+        {
+            if (is_stop)
+            {
+                is_stop = false;
+                return ;
+            }
+           
+
+
+            command = "-preset " + cbp;
+
+            command = command + " -metadata " + cbm;
+
+
+            if (cblossless)
+            {
+                command = command + " -lossless";
+                if (cbexact)
+                    command = command + " -exact";
+            }
+            else
+            {
+                command = command + " -q " + numqf;
+                command = command + " -m " + numcomp;
+            }
+            command = command + " \"" + lvitems + "\"";
+
+
+
+            String[] spstring = lvitems.Split('\\');
+
+
+            command = command + " -o " + "\"" + savepath + @"\" + spstring[spstring.Length - 1] + ".webp" + "\"";
+
+
+            OnSetProgressEvent(now_index + 1);//progressBar1.Value = i + 1;
+
+            ThreadWorker worker = new ThreadWorker();
+            worker.Process = cwebp_thread;
+            worker.OnCompleted += new EventHandler(Complete);
+
+            T_cwemp = new Thread(worker.Run);
+            T_cwemp.Start();
+            //T_cwemp.Join();
+           // OnSetlistviewColor(now_index, Color.Aquamarine);// listView1.Items[i].BackColor = Color.Aquamarine;
+
+           
+        }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            OnSetProgressEvent(0);//progressBar1.Value = 0;
+           
+            progressBar1.Value = 0;
             for (int i = 0; i < listView1.Items.Count; i++)
             {
-                OnSetlistviewColor(i, Color.White);//listView1.Items[i].BackColor = Color.White;
+                listView1.Items[i].BackColor = Color.White;
             }
 
-            OnSetMaxProgressEvent(listView1.Items.Count);//progressBar1.Maximum = listView1.Items.Count;
+           progressBar1.Maximum = listView1.Items.Count;
+                        
+             
+             
             if (listView1.Items.Count == 0)
             {
                 MessageBox.Show("No Selected Image");
@@ -170,45 +265,44 @@ namespace Webp
                 MessageBox.Show("No Selected save path");
                 return;
             }
+            now_index = 0;
 
-            for (int i = 0; i < listView1.Items.Count; i++)
-            {
-                if (is_stop)
-                {
-                    is_stop = false;
-                    break;
-                }
-                T_Work_file.Text = listView1.Items[i].Text;
+            lvitems = listView1.Items[0].Text;
+            cbp = CB_Preset.Text;
+            cbm = CB_Metadata.Text;
+            cblossless = CB_Lossless.Checked;
+            numqf = Num_QF.Value.ToString();
+            numcomp = Num_COMP.Value.ToString();
+            T_Work_file.Text = lvitems;
+            savepath = T_Save_Path.Text;
+            cbexact = CB_Exact.Checked;
 
+            T_Start = new Thread(start_thread);
+            T_Start.Start();
+            
 
-                command = "-preset " + CB_Preset.Text;
-
-                command = command + " -metadata " + CB_Metadata.Text;
-
-                command = command + " -q " + Num_QF.Value.ToString();
-                command = command + " -m " + Num_COMP.Value.ToString();
-                command = command + " \"" + T_Work_file.Text + "\"";
-
-
-
-                String[] spstring = T_Work_file.Text.Split('\\');
-
-
-                command = command + " -o " + "\"" + T_Save_Path.Text + @"\" + spstring[spstring.Length - 1] + ".webp" + "\"";
-
-
-                OnSetProgressEvent(i + 1);//progressBar1.Value = i + 1;
-                T_cwemp = new Thread(cwebp_thread);
-                T_cwemp.Start();
-                T_cwemp.Join();
-                OnSetlistviewColor(i, Color.Aquamarine);// listView1.Items[i].BackColor = Color.Aquamarine;
-            }
-            MessageBox.Show("clear");
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             is_stop = true;
+        }
+
+        private void CB_Lossless_CheckedChanged(object sender, EventArgs e)
+        {
+            if (CB_Lossless.Checked)
+            {
+                Num_QF.Enabled = false;
+                Num_COMP.Enabled = false;
+                CB_Exact.Enabled = true;
+            }
+            else
+            {
+                Num_QF.Enabled = true;
+                Num_COMP.Enabled = true;
+                CB_Exact.Enabled = false;
+            }
+            
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -217,6 +311,19 @@ namespace Webp
             {
                 T_Save_Path.Text = folderBrowserDialog1.SelectedPath;
             }
+        }
+    }
+    class ThreadWorker
+    {
+        public Func<int> Process { get; set; } // 실제 스레드가 작업할 메소드 명
+        public event EventHandler OnCompleted; // 작업할 내용르
+
+        public void Run()
+        {
+            Process();
+
+            if (OnCompleted != null)
+                OnCompleted(this, EventArgs.Empty);
         }
     }
 }

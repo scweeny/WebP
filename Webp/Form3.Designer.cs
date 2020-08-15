@@ -40,6 +40,8 @@
             this.T_Save_Path = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.listView1 = new System.Windows.Forms.ListView();
+            this.label7 = new System.Windows.Forms.Label();
+            this.CB_Lossless = new System.Windows.Forms.CheckBox();
             this.CB_Metadata = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.CB_Preset = new System.Windows.Forms.ComboBox();
@@ -51,6 +53,8 @@
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.label8 = new System.Windows.Forms.Label();
+            this.CB_Exact = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -103,6 +107,10 @@
             // 
             // splitContainer2.Panel2
             // 
+            this.splitContainer2.Panel2.Controls.Add(this.label8);
+            this.splitContainer2.Panel2.Controls.Add(this.CB_Exact);
+            this.splitContainer2.Panel2.Controls.Add(this.label7);
+            this.splitContainer2.Panel2.Controls.Add(this.CB_Lossless);
             this.splitContainer2.Panel2.Controls.Add(this.CB_Metadata);
             this.splitContainer2.Panel2.Controls.Add(this.label6);
             this.splitContainer2.Panel2.Controls.Add(this.CB_Preset);
@@ -157,13 +165,14 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(483, 364);
+            this.button2.Location = new System.Drawing.Point(398, 364);
             this.button2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(66, 27);
             this.button2.TabIndex = 24;
             this.button2.Text = "Cancel";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Visible = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // label1
@@ -196,7 +205,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(404, 364);
+            this.button1.Location = new System.Drawing.Point(483, 364);
             this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(66, 27);
@@ -215,6 +224,26 @@
             this.listView1.TabIndex = 19;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.List;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(3, 222);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(57, 12);
+            this.label7.TabIndex = 9;
+            this.label7.Text = "Lossless";
+            // 
+            // CB_Lossless
+            // 
+            this.CB_Lossless.AutoSize = true;
+            this.CB_Lossless.Location = new System.Drawing.Point(95, 222);
+            this.CB_Lossless.Name = "CB_Lossless";
+            this.CB_Lossless.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.CB_Lossless.Size = new System.Drawing.Size(15, 14);
+            this.CB_Lossless.TabIndex = 8;
+            this.CB_Lossless.UseVisualStyleBackColor = true;
+            this.CB_Lossless.CheckedChanged += new System.EventHandler(this.CB_Lossless_CheckedChanged);
             // 
             // CB_Metadata
             // 
@@ -326,6 +355,26 @@
             this.openFileDialog1.Filter = "JPG|*.jpg|JPEG|*.jpeg|PNG|*.png|TIFF|*.tiff";
             this.openFileDialog1.Multiselect = true;
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(3, 250);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(37, 12);
+            this.label8.TabIndex = 11;
+            this.label8.Text = "Exact";
+            // 
+            // CB_Exact
+            // 
+            this.CB_Exact.AutoSize = true;
+            this.CB_Exact.Enabled = false;
+            this.CB_Exact.Location = new System.Drawing.Point(95, 250);
+            this.CB_Exact.Name = "CB_Exact";
+            this.CB_Exact.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.CB_Exact.Size = new System.Drawing.Size(15, 14);
+            this.CB_Exact.TabIndex = 10;
+            this.CB_Exact.UseVisualStyleBackColor = true;
+            // 
             // Form3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -379,5 +428,9 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.NumericUpDown Num_QF;
         public System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.CheckBox CB_Lossless;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.CheckBox CB_Exact;
     }
 }
