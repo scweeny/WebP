@@ -1,0 +1,14 @@
+C:\Users\zsky3\source\repos\Webp\Webp\bin\Debug\Webp.exe.config
+C:\Users\zsky3\source\repos\Webp\Webp\bin\Debug\Webp.exe
+C:\Users\zsky3\source\repos\Webp\Webp\bin\Debug\Webp.pdb
+C:\Users\zsky3\source\repos\Webp\Webp\obj\Debug\Webp.csprojAssemblyReference.cache
+C:\Users\zsky3\source\repos\Webp\Webp\obj\Debug\Webp.Form1.resources
+C:\Users\zsky3\source\repos\Webp\Webp\obj\Debug\Webp.Properties.Resources.resources
+C:\Users\zsky3\source\repos\Webp\Webp\obj\Debug\Webp.csproj.GenerateResource.cache
+C:\Users\zsky3\source\repos\Webp\Webp\obj\Debug\Webp.csproj.CoreCompileInputs.cache
+C:\Users\zsky3\source\repos\Webp\Webp\obj\Debug\Webp.exe
+C:\Users\zsky3\source\repos\Webp\Webp\obj\Debug\Webp.pdb
+C:\Users\zsky3\source\repos\Webp\Webp\obj\Debug\Webp.Form2.resources
+C:\Users\zsky3\source\repos\Webp\Webp\bin\Debug\binary\cwebp.exe
+C:\Users\zsky3\source\repos\Webp\Webp\bin\Debug\binary\dwebp.exe
+C:\Users\zsky3\source\repos\Webp\Webp\obj\Debug\Webp.Form3.resources
